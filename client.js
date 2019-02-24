@@ -1,0 +1,1 @@
+let nickname = "Anonymous";
