@@ -42,8 +42,9 @@ form button {
     border: 5px solid #141a1f;
     border-radius: 4px;
     margin: 2px;
-    overflow-y: scroll;
-    max-height: 100vh
+    overflow-y: auto;
+    min-height: calc(97vh - 50px);
+    max-height: calc(97vh - 50px);
 }
 
 .title{
@@ -92,9 +93,7 @@ form button {
     padding: 5px 10px;
 }
 
-#messages li:nth-child(odd) {
-    background: #eee;
-}
+
 
 #messages {
     margin-bottom: 40px

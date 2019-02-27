@@ -14,7 +14,6 @@ $(document).ready(() => {
 
 	socket.on('chat message', function (msg) {
 		$('#messages').append($('<li>').text(msg));
-		//window.scrollTo(0, document.getElementById("messages").scrollHeight);
 		$('#chat').scrollTop($("#chat")[0].scrollHeight);
 	});
 
