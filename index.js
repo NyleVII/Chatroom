@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const express = require('express');
 
-
+let userList = ["user1", "user2"];
 
 app.use(express.static("./"));
 
@@ -12,7 +12,10 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-    console.log('a user connected');
+	console.log('a user connected');
+	io.emit('user update', userList);
+
+	//When user disconnects
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });

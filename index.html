@@ -2,41 +2,86 @@
 <html>
 
 <head>
-  <title>Socket.IO chat</title>
-  <link rel="stylesheet" href="styles/style.css">
-  <script src="client.js"></script>
+	<title>Socket.IO chat</title>
+	<link rel="stylesheet" href="styles/style.css">
+
 </head>
 
 <body>
-  <ul id="messages"></ul>
-  <form action="">
-    <input id="m" autocomplete="off" /><button>Send</button>
-  </form>
+	<div id="nav">
+		Welcome User!
+	</div>
+	<div id="page">
+		<div id="users" class="column">
+			<span class="title">Connected Users:</span>
+			<ul id="userlist">
+				<li>SuperLongUserNameNoOneShouldEverHaveIguessthisneedstobelongerstill</li>
+				<li>User 2</li>
+				<li>User 3</li>
+				<li>User 4</li>
+				<li>User 5</li>
+		</div>
+
+		<div id="chat" class="column">
+			<ul id="messages">
+				<li>Message 1</li>
+				<li>Message 2</li>
+				<li>Message 3</li>
+				<li>Message 4</li>
+				<li>Message 5</li>
+				<li>Message 6</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 1</li>
+				<li>Message 2</li>
+				<li>Message 3</li>
+				<li>Message 4</li>
+				<li>Message 5</li>
+				<li>Message 6</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 1</li>
+				<li>Message 2</li>
+				<li>Message 3</li>
+				<li>Message 4</li>
+				<li>Message 5</li>
+				<li>Message 6</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 1</li>
+				<li>Message 2</li>
+				<li>Message 3</li>
+				<li>Message 4</li>
+				<li>Message 5</li>
+				<li>Message 6</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 7</li>
+				<li>Message 12</li>
+			</ul>
+			
+		</div>
+		<form action="">
+			<input id="m" autocomplete="off" /><button>Send</button>
+		</form>
+	</div>
 
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-  <script>
-    $(function () {
-      var socket = io();
-      $('form').submit(function (e) {
-        e.preventDefault(); // prevents page reloading
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function (msg) {
-        $('#messages').append($('<li>').text(msg));
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-
-      socket.on('nick change', function (msg) {
-        nickname = msg;
-        console.log("Nick changed to: " + nickname);
-      });
-    });
-  </script>
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="client.js"></script>
 </body>
 
 </html>

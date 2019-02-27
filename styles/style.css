@@ -4,8 +4,12 @@
     box-sizing: border-box;
 }
 
+
+
 body {
     font: 13px Helvetica, Arial;
+    background-color: #29333d;
+    color: #c2ccd6;
 }
 
 form {
@@ -28,12 +32,60 @@ form button {
     background: rgb(130, 224, 255);
     border: none;
     padding: 10px;
+    float: right;
+}
+
+.column
+{
+    height: 100%;
+    padding: 8px;
+    border: 5px solid #141a1f;
+    border-radius: 4px;
+    margin: 2px;
+    overflow-y: scroll;
+    max-height: 100vh
+}
+
+.title{
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+#nav {
+    font-size: 20px;
+    text-decoration: underline;
+    margin: 5px;
+}
+
+#page {
+    display: flex;
+    height: 100%;
+
+}
+
+
+
+#users {
+    height: 100%;
+    max-width: 20%;
+}
+
+#userlist {
+    justify-content: flex-start;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+#chat {
+    width: 80%;
+    justify-content: flex-end;
 }
 
 #messages {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    max-height: 800px;
 }
 
 #messages li {
