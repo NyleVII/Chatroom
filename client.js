@@ -5,6 +5,7 @@ let userObj = {
 
 $(document).ready(() => {
 	var socket = io();
+
 	$('form').submit(function (e) {
 		e.preventDefault(); // prevents page reloading
 		socket.emit('chat message', $('#m').val());
@@ -28,6 +29,10 @@ $(document).ready(() => {
 		for(i = 0; i < userList.length; i++){
 			$('#users').append($('<li>').text(userList[i]));
 		}
+	});
+
+	socket.on("id update", function(newID){
+		userObj.uuid = newID;
 	});
 
 });

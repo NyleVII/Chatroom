@@ -29,7 +29,8 @@ form input {
 
 form button {
     width: 9%;
-    background: rgb(130, 224, 255);
+    background: #29333d;
+    color: #c2ccd6;
     border: none;
     padding: 10px;
     float: right;
