@@ -79,7 +79,7 @@ form button {
 }
 
 #chat {
-    width: 80%;
+    width: 100%;
     justify-content: flex-end;
 }
 

@@ -1,5 +1,5 @@
 let userObj = {
-	uuid: getCookie("uuid"),
+	uuid: "",
 	nickname: getCookie("nickname"),
 	colour: getCookie("nickColour")
 }
@@ -22,6 +22,7 @@ function setCookie(cname, cvalue, exdays) {
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+//Gets value of cookie. If not set, returns ""
 function getCookie(cname) {
 	var name = cname + "=";
 	var ca = document.cookie.split(';');
@@ -75,7 +76,8 @@ $(document).ready(() => {
 	//Check cookie on load to initialize
 	//checkCookie();
 
-	socket.on("request userObj", function(newID){
+	socket.on("request userObj", function(newUserObj){
+		console.log("Sending userObj update...");
 		socket.emit("send userObj", userObj);
 	});
 

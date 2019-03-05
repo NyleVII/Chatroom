@@ -66,22 +66,30 @@ app.get('/', function (req, res) {
 
 io.on('connection', function (socket) {
     console.log('a user connected');
-
+    //User Connection Setup
     let newID = uuid.v4();
+    let userObj = new UserObj(newID, getNewNick());
     socket.emit("id update", newID); //Send ID to user
-    userObj = new UserObj(newID, getNewNick());
+    socket.emit("request userObj", userObj);
+
+    
     userList[userObj.uuid] = userObj;
     //console.log(userList);
     //Send newly connected user the userlist
     io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
-    socket.emit('message log', messageHistory);
 
-
-
-    
     //Send newly connected user the userlist
-
     socket.emit('message log', messageHistory);
+
+    socket.on("send userObj", function(newUserObj){
+        let userObj = new UserObj(newUserObj.uuid, newUserObj.nickname);
+        userObj.colour = newUserObj.colour;
+        if(userObj.nickname === ""){
+            userObj.nickname = getNewNick();
+        }
+        userList[userObj.uuid] = userObj;
+        io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
+    });
 
     //When user disconnects
     socket.on('disconnect', function () {
