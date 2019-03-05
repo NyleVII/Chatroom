@@ -38,17 +38,6 @@ function getCookie(cname) {
 	return "";
 }
 
-// function checkCookie() {
-// 	var user = getCookie("nickname");
-// 	if (user != "") {
-// 		//Do something when we have a username already
-// 	} else {
-// 		user = prompt("Please enter your name:", "");
-// 		if (user != "" && user != null) {
-// 			setCookie("nickname", user, 30);
-// 		}
-// 	}
-// }
 
 
 function prepChatMsg(msgText) {
@@ -66,7 +55,13 @@ function getTimestamp(dateStr) {
 
 function getChatMsg(msg) {
 	chatline = "";
-	chatline += getTimestamp(msg.date) + " " + "<span style='color:#" + msg.colour + "'>" + msg.nickname + "</span>" + ": " + msg.text;
+	if (msg.uuid === userObj.uuid) {
+		chatline += "<span style='font-weight:bold'>" + getTimestamp(msg.date) + " " + "<span style='color:#" + msg.colour + "'>" + msg.nickname + "</span>" + ": " + msg.text + "</span>";
+	}
+	else {
+		chatline += getTimestamp(msg.date) + " " + "<span style='color:#" + msg.colour + "'>" + msg.nickname + "</span>" + ": " + msg.text;
+	}
+
 	return chatline;
 }
 
@@ -76,7 +71,7 @@ $(document).ready(() => {
 	//Check cookie on load to initialize
 	//checkCookie();
 
-	socket.on("request userObj", function(newUserObj){
+	socket.on("request userObj", function (newUserObj) {
 		console.log("Sending userObj update...");
 		socket.emit("send userObj", userObj);
 	});

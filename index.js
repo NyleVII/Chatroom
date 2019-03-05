@@ -88,6 +88,7 @@ io.on('connection', function (socket) {
             userObj.nickname = getNewNick();
         }
         userList[userObj.uuid] = userObj;
+        socket.emit('nick change', userObj.nickname);
         io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
     });
 
