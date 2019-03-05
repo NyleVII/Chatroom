@@ -70,6 +70,7 @@ form button {
 #users {
     height: 100%;
     max-width: 20%;
+    min-width: 20%;
 }
 
 #userlist {
