@@ -35,7 +35,7 @@ function getNewNick() {
     return "User" + userCount;
 }
 
-function updateUserNames(userList) {
+function getUserNames(userList) {
     let userNames = [];
 
     for (var key in userList) {
@@ -76,7 +76,7 @@ io.on('connection', function (socket) {
     userList[userObj.uuid] = userObj;
     //console.log(userList);
     //Send newly connected user the userlist
-    io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
+    io.emit('user update', getUserNames(userList)); //Send userList to all connected users
 
     //Send newly connected user the userlist
     socket.emit('message log', messageHistory);
@@ -89,7 +89,7 @@ io.on('connection', function (socket) {
         }
         userList[userObj.uuid] = userObj;
         socket.emit('nick change', userObj.nickname);
-        io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
+        io.emit('user update', getUserNames(userList)); //Send userList to all connected users
     });
 
     //When user disconnects
@@ -98,7 +98,7 @@ io.on('connection', function (socket) {
         console.log('Deleting user: ' + newID);
         delete userList[newID];
         //console.log(userList);
-        io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
+        io.emit('user update', getUserNames(userList)); //Send userList to all connected users
     });
 
     socket.on('chat message', function (msg) {
@@ -107,15 +107,29 @@ io.on('connection', function (socket) {
             //Do nothing
         }
         else if (nickChange[0] === "/nick") {
-            socket.emit('nick change', nickChange[1]);
-            userList[msg.uuid].nickname = nickChange[1];
-            io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
+            currentNicks = getUserNames(userList);
+            console.log(currentNicks);
+            let nickTaken = false;
+            for(let i = 0; i < currentNicks.length; i++){
+                if(currentNicks[i].nickname.includes(nickChange[1])){
+                    nickTaken = true;
+                }
+            }
+            if(nickTaken === true){
+                socket.emit('nick change fail', "Username " + nickChange[1] + " is taken.");
+            }
+            else{
+                socket.emit('nick change', nickChange[1]);
+                userList[msg.uuid].nickname = nickChange[1];
+                io.emit('user update', getUserNames(userList)); //Send userList to all connected users
+            }
+            
         }
         else if (nickChange[0] === "/nickcolor" || nickChange[0] === "/nickcolour") {
             userList[msg.uuid].colour = nickChange[1];
             console.log(userList[msg.uuid].colour);
             socket.emit('nick colour', nickChange[1]);
-            io.emit('user update', updateUserNames(userList)); //Send userList to all connected users
+            io.emit('user update', getUserNames(userList)); //Send userList to all connected users
         }
         else {
             messageHistory.push(msg);

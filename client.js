@@ -104,6 +104,11 @@ $(document).ready(() => {
 		setCookie("nickname", newNick, 30);
 	});
 
+	socket.on('nick change fail', function(message) {
+		$('#messages').append($('<li>').text(message));
+			$('#chat').scrollTop($("#chat")[0].scrollHeight);
+	});
+
 	socket.on('nick colour', function (newColour) {
 		userObj.colour = newColour;
 		setCookie("nickColour", newColour, 30);
